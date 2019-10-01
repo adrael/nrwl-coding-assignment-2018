@@ -19,9 +19,10 @@ import { UsersStoreModule } from './users/users.store.module';
             }
         }),
         EffectsModule.forRoot([]),
-        StoreRouterConnectingModule.forRoot({
-            routerState: RouterState.Minimal
-        }),
+        // TODO: Figure out why it does not work in StackBlitz
+        // StoreRouterConnectingModule.forRoot({
+        //     routerState: RouterState.Minimal
+        // }),
         environment.production ? [] : StoreDevtoolsModule.instrument({ name: 'NrwlAssignment' }),
         TicketsStoreModule,
         UsersStoreModule
