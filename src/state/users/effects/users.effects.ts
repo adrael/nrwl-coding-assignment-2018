@@ -16,7 +16,7 @@ export class UsersEffects {
             switchMap(() => {
                 return this.usersRepository.getUsers().pipe(
                     map((users: Array<User>) => fetchUsersSuccess({ users })),
-                    catchError((error: HttpErrorResponse) => of(fetchUsersFailure({ error })))
+                    catchError(({ message }: HttpErrorResponse) => of(fetchUsersFailure({ error: message })))
                 );
             })
         )

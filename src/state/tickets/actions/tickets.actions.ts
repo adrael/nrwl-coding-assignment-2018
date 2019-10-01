@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { Ticket } from '../../../domain/ticket.interface';
 
@@ -9,7 +8,7 @@ export const fetchTicketsSuccess = createAction(
 );
 export const fetchTicketsFailure = createAction(
     '[Tickets API] Fetch tickets failure',
-    props<{ error: HttpErrorResponse }>()
+    props<{ error: string }>()
 );
 
 export const toggleTicketCompleteness = createAction(
@@ -22,7 +21,7 @@ export const toggleTicketCompletenessSuccess = createAction(
 );
 export const toggleTicketCompletenessFailure = createAction(
     '[Tickets API] Toggle ticket completeness failure',
-    props<{ error: HttpErrorResponse }>()
+    props<{ error: string }>()
 );
 
 export const createTicket = createAction(
@@ -35,7 +34,7 @@ export const createTicketSuccess = createAction(
 );
 export const createTicketFailure = createAction(
     '[Tickets API] Create ticket failure',
-    props<{ error: HttpErrorResponse }>()
+    props<{ error: string }>()
 );
 
 export const assignUser = createAction(
@@ -48,5 +47,5 @@ export const assignUserSuccess = createAction(
 );
 export const assignUserFailure = createAction(
     '[Tickets API] Assign user failure',
-    props<{ error: HttpErrorResponse }>()
+    props<{ error: string }>()
 );

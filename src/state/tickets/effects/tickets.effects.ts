@@ -29,7 +29,7 @@ export class TicketsEffects {
             switchMap(() => {
                 return this.ticketsRepository.getTickets().pipe(
                     map((tickets: Array<Ticket>) => fetchTicketsSuccess({ tickets })),
-                    catchError((error: HttpErrorResponse) => of(fetchTicketsFailure({ error })))
+                    catchError(({ message }: HttpErrorResponse) => of(fetchTicketsFailure({ error: message })))
                 );
             })
         )
@@ -41,7 +41,7 @@ export class TicketsEffects {
             switchMap(({ ticketId, completeness }: { ticketId: number, completeness: boolean }) => {
                 return this.ticketsRepository.toggleTicketCompleteness(ticketId, completeness).pipe(
                     map((ticket: Ticket) => toggleTicketCompletenessSuccess({ ticket })),
-                    catchError((error: HttpErrorResponse) => of(toggleTicketCompletenessFailure({ error })))
+                    catchError(({ message }: HttpErrorResponse) => of(toggleTicketCompletenessFailure({ error: message })))
                 );
             })
         )
@@ -53,7 +53,7 @@ export class TicketsEffects {
             switchMap(({ ticket }: { ticket: Ticket }) => {
                 return this.ticketsRepository.createTicket(ticket).pipe(
                     map((ticket: Ticket) => createTicketSuccess({ ticket })),
-                    catchError((error: HttpErrorResponse) => of(createTicketFailure({ error })))
+                    catchError(({ message }: HttpErrorResponse) => of(createTicketFailure({ error: message })))
                 );
             })
         )
@@ -65,7 +65,7 @@ export class TicketsEffects {
             switchMap(({ ticketId, userId }: { ticketId: number, userId: number }) => {
                 return this.ticketsRepository.assignUser(ticketId, userId).pipe(
                     map((ticket: Ticket) => assignUserSuccess({ ticket })),
-                    catchError((error: HttpErrorResponse) => of(assignUserFailure({ error })))
+                    catchError(({ message }: HttpErrorResponse) => of(assignUserFailure({ error: message })))
                 );
             })
         )

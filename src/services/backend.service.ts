@@ -66,7 +66,7 @@ export class BackendService {
 
         return of(newTicket).pipe(
             delay(randomDelay()),
-            tap((ticket: Ticket) => this.storedTickets.push(ticket))
+            tap(() => this.storedTickets.push(newTicket))
         );
     }
 
