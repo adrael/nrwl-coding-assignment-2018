@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header">
+        Ticket #{{ ticket.id }}
+
+        <div class="float-right">
+            <ng-container [ngSwitch]="ticket.completed">
+                <span class="badge badge-pill badge-danger" *ngSwitchCase="false">Not completed</span>
+                <span class="badge badge-pill badge-success" *ngSwitchCase="true">Completed</span>
+            </ng-container>
+        </div>
+    </div>
+
+    <a class="card-body">
+        <h5 class="card-title">{{ ticket.description }}</h5>
+
+        <h6 class="card-subtitle mb-2 text-muted">
+
+        </h6>
+
+        <p class="card-text">
+            Assigned to <span class="badge badge-warning">@{{ user?.name }}</span>
+        </p>
+
+        <a [routerLink]="['/details', ticket.id]" class="btn btn-info mr-1">Details</a>
+
+        <button (click)="toggleCompleteness()" class="btn btn-primary" [ngSwitch]="ticket.completed">
+            <ng-container *ngSwitchCase="true">Mark as not completed</ng-container>
+            <ng-container *ngSwitchCase="false">Mark as completed</ng-container>
+        </button>
+    </a>
+</div>

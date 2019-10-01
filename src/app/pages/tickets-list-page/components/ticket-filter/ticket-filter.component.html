@@ -1,0 +1,16 @@
+<form>
+    <div class="form-group">
+        <label for="filter" class="sr-only">Filter tickets</label>
+
+        <input type="text"
+               id="filter"
+               name="filter"
+               class="form-control"
+               placeholder="What are you looking for?"
+               aria-describedby="filterHelp"
+               [ngModel]="filter"
+               (ngModelChange)="onFilterChange($event)">
+
+        <small id="filterHelp" class="form-text text-muted">You can look for an id, a description, an assignee...</small>
+    </div>
+</form>

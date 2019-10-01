@@ -1,0 +1,33 @@
+<h2>Create a ticket</h2>
+
+<form (ngSubmit)="createTicket()" #form="ngForm">
+    <div class="form-group">
+        <label>Description</label>
+        <textarea name="description"
+                  class="form-control"
+                  cols="30"
+                  rows="10"
+                  placeholder="Send rocket to the moon"
+                  required
+                  [(ngModel)]="ticket.description"></textarea>
+    </div>
+
+    <!-- TODO: Create a ControlValueAccessor component out of this -->
+    <div class="form-group" [ngSwitch]="hasUsers$ | async">
+        <label>Assignee</label>
+
+        <h1 *ngSwitchCase="false">Loading users...</h1>
+
+        <ul class="list-group" *ngSwitchCase="true">
+            <li class="list-group-item"
+                (click)="selectUser(user.id)"
+                [class.active]="isSelectedUser(user.id)"
+                *ngFor="let user of users$ | async">
+                {{ user.name }}
+            </li>
+        </ul>
+    </div>
+
+    <a routerLink="/" class="btn btn-light mr-2">Cancel</a>
+    <button type="submit" class="btn btn-primary" [disabled]="!ticket.assigneeId || form.invalid">Create this awesome ticket</button>
+</form>

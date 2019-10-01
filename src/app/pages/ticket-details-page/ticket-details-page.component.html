@@ -1,0 +1,39 @@
+<ng-template #loadingTicket>
+    <h1>Loading ticket...</h1>
+</ng-template>
+
+<ng-container *ngIf="ticket$ | async as ticket; else loadingTicket">
+    <h2>Ticket #{{ ticket.id }} details</h2>
+
+    <form>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description"
+                      class="form-control"
+                      cols="30"
+                      rows="10"
+                      placeholder="Send rocket to the moon"
+                      readonly
+                      [ngModel]="ticket.description"></textarea>
+        </div>
+
+        <!-- TODO: Create a ControlValueAccessor component out of this -->
+        <div class="form-group" [ngSwitch]="hasUsers$ | async">
+            <label>Assignee</label>
+
+            <h1 *ngSwitchCase="false">Loading users...</h1>
+
+            <ul class="list-group" *ngSwitchCase="true">
+                <li class="list-group-item"
+                    (click)="assignUser(ticket.id, user.id)"
+                    [class.active]="isSelectedUser(ticket, user.id)"
+                    *ngFor="let user of users$ | async">
+                    {{ user.name }}
+                </li>
+            </ul>
+        </div>
+
+        <a routerLink="/" class="btn btn-light mr-2">Cancel</a>
+    </form>
+</ng-container>
+

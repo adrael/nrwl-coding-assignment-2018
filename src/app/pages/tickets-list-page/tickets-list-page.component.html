@@ -1,0 +1,17 @@
+<h2>
+    Tickets
+    <a class="btn btn-dark float-right" routerLink="/create">+ Add a ticket</a>
+</h2>
+
+<app-ticket-filter (filterChange)="onFilterChange($event)"></app-ticket-filter>
+
+<ng-container [ngSwitch]="hasTickets$ | async">
+    <h1 *ngSwitchCase="false">Loading tickets...</h1>
+
+    <div *ngSwitchCase="true" class="d-flex">
+        <app-ticket [class.mr-2]="!lastTicket"
+                    *ngFor="let ticket of tickets$ | async; let lastTicket = last" [ticket]="ticket"
+                    [user]="findTicketAssignee(ticket.assigneeId) | async"
+                    (ticketCompletenessToggled)="onTicketCompletenessToggled(ticket)"></app-ticket>
+    </div>
+</ng-container>
